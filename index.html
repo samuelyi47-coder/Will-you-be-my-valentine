@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Will you be my Valentine?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    img {
+      max-width: 320px;
+      width: 100%;
+      border-radius: 12px;
+    }
+    h1 { margin: 16px 0; }
+    .buttons {
+      margin-top: 12px;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+    button {
+      font-size: 18px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #yes { background: #ff4d88; color: white; }
+    #no  { background: #e5e7eb; }
+    #message { margin-top: 16px; font-weight: bold; min-height: 24px; }
+  </style>
+</head>
+
+<body>
+  <img id="photo" src="start.jpg" alt="valentine">
+  <h1>Will you be my Valentine?</h1>
+
+  <div class="buttons">
+    <button id="yes">Yes ❤️</button>
+    <button id="no">No 🙃</button>
+  </div>
+
+  <div id="message"></div>
+
+  <script>
+    const photo = document.getElementById("photo");
+    const no = document.getElementById("no");
+    const yes = document.getElementById("yes");
+    const message = document.getElementById("message");
+
+    let count = 0;
+    const memes = ["meme1.jpg","meme2.gif","meme3.jpg","meme4.gif"];
+
+    no.onclick = () => {
+      photo.src = memes[Math.min(count, memes.length - 1)];
+      message.textContent = "Are you sure? 😏";
+
+      const scale = Math.max(0.25, 1 - count * 0.2);
+      no.style.transform = `scale(${scale})`;
+      count++;
+
+      if (count >= memes.length) {
+        no.disabled = true;
+        no.style.opacity = 0.4;
+        no.style.cursor = "not-allowed";
+        message.textContent = "No is no longer an option 😌";
+      }
+    };
+
+    yes.onclick = () => {
+      photo.src = "yay.gif";
+      message.innerHTML = "YAY 💖<br>Dinner + movie night<br><strong>Sunday, Feb 15 • 7:00 PM</strong>";
+      no.style.display = "none";
+      yes.disabled = true;
+      yes.textContent = "Date confirmed ✅";
+    };
+  </script>
+</body>
+</html>
